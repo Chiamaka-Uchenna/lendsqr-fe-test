@@ -29,15 +29,6 @@ const nextConfig: NextConfig = {
 
     return config;
   },
-
-  exportPathMap: async function () {
-    return {
-      "/": { page: "/" },
-      "/dashboard": { page: "/dashboard" },
-      "/dashboard/user": { page: "/user" },
-      "/dashboard/user-details": { page: "/user-details" },
-    };
-  },
 };
 
 export default nextConfig;
