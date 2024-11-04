@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import "./styles/globals.scss";
+import "@/app/styles/globals.scss";
+
 import { inter } from './utils/font'
 
 

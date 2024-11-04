@@ -5,3 +5,37 @@
 html {
   font-family: var(--font-inter);
 }
+/* Add this to your global styles or Tailwind configuration */
+.container-width {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+@font-face {
+  font-family: 'SF Compact Text';
+  src: url('/fonts/SF-Compact-Text.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.sfCompactText {
+  font-family: 'SF Compact Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+@layer utilities {
+  .customText{
+    @apply text-[12px] font-medium text-secondary leading-[14.08px];
+  }
+  .labelText{
+    @apply text-[14px] leading-[16.42px] font-medium text-secondary;
+  }
+  .userText {
+    @apply font-bold text-[12px] text-secondary leading-[10.42px];
+  }
+  .detailsText{
+    @apply font-bold text-[16px] text-primary leading-[18.77px];
+  }
+  .profileText{
+     @apply font-normal text-[16px] text-black text-opacity-80 hover:text-teal text-center leading-[19.07px];
+  }
+  
+}
