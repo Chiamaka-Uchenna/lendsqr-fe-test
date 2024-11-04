@@ -6,6 +6,10 @@ import TableData from "@/app/utils/dashboard/TableData";
 // Sample user data
 const sampleUsers: User[] = [
   {
+    id: "1", // Add an id
+    borrower_id: "borrower123", // Add a borrower_id
+    bank: "Example Bank", // Add a bank name
+    account_number: "1234567890", // Add an account number
     organization: "Lendsqr",
     username: "user1",
     email: "user1@example.com",
@@ -34,9 +38,8 @@ const sampleUsers: User[] = [
       relationship: "Friend",
     },
   },
-  // Add more sample users as needed
+  // Add more sample users as needed, ensuring each has the required properties
 ];
-
 export default function UserTableWithFilters() {
   const [filters, setFilters] = useState({
     organization: "",
