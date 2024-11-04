@@ -9,8 +9,8 @@ interface User {
 // Retrieve user credentials from environment variables
 const users: User[] = [
   {
-    email: process.env.USER_EMAIL || "",
-    password: process.env.USER_PASSWORD || "", // This should be plain text now
+    email: process.env.NEXT_PUBLIC_USER_EMAIL || "",
+    password: process.env.NEXT_PUBLIC_USER_PASSWORD || "", // This should be plain text now
   },
 ];
 
