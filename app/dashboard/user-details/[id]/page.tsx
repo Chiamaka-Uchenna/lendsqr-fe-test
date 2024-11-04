@@ -16,11 +16,11 @@ export default function UserPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchAllUsers = async () => {
       const response = await fetch(
-        `https://run.mocky.io/v3/a17eedb2-93a9-4550-be85-42c48e0862d2`
+        `https://run.mocky.io/v3/533da3a4-96a9-45ee-bbdf-3008f00296c2`
       );
       const data = await response.json();
       setAllUsers(data.users);
-      const selectedUser = data.users.find((u: User) => u.id === params.id);
+      const selectedUser = data.user.find((u: User) => u.id === params.id);
       setUser(selectedUser || null);
     };
 
