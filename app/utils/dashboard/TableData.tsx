@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react"; // Import useRef
+import { useEffect, useRef, useState } from "react";
 import { FaEllipsisV } from "react-icons/fa";
 import { MdFilterList } from "react-icons/md";
 
-import Filters from "@/app/utils/dashboard/Filters"; // Ensure this path is correct
-import Pagination from "@/app/utils/dashboard/Pagination"; // Import the Pagination component
+import Filters from "@/app/utils/dashboard/Filters";
+import Pagination from "@/app/utils/dashboard/Pagination";
 import dynamic from "next/dynamic";
 import { User } from "@/app/types/User";
 
@@ -34,40 +34,38 @@ export default function TableData({ users }: TableProps) {
   const [showFilters, setShowFilters] = useState(false);
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [showDropdown, setShowDropdown] = useState<string | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null); // Create a ref for the dropdown menu
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const filtersRef = useRef<HTMLDivElement>(null);
 
   const handleBlacklistUser = (userId: string) => {
     console.log(`Blacklisting user: ${userId}`);
-    setShowDropdown(null); // Hide dropdown after action
+    setShowDropdown(null);
   };
 
   const handleActivateUser = (userId: string) => {
     console.log(`Activating user: ${userId}`);
-    setShowDropdown(null); // Hide dropdown after action
+    setShowDropdown(null);
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Set the number of users to display per page
+  const itemsPerPage = 10;
 
   const toggleFilters = () => {
     setShowFilters(!showFilters);
   };
 
-  // Function to apply filters to the user data
   const applyFilters = (filters: {
     organization?: string;
     status?: string;
   }) => {
     let filteredData = users;
 
-    // Filter by organization if provided
     if (filters.organization) {
       filteredData = filteredData.filter(
         (user) => user.organization === filters.organization
       );
     }
 
-    // Filter by status if provided
     if (filters.status) {
       filteredData = filteredData.filter(
         (user) => user.status === filters.status
@@ -75,17 +73,23 @@ export default function TableData({ users }: TableProps) {
     }
 
     setFilteredUsers(filteredData);
-    setCurrentPage(1); // Reset to the first page after applying filters
+    setCurrentPage(1);
   };
 
-  // Handle click outside dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setShowDropdown(null); // Close dropdown if clicked outside
+        setShowDropdown(null);
+      }
+
+      if (
+        filtersRef.current &&
+        !filtersRef.current.contains(event.target as Node)
+      ) {
+        setShowFilters(false);
       }
     };
 
@@ -95,7 +99,6 @@ export default function TableData({ users }: TableProps) {
     };
   }, []);
 
-  // Calculate pagination
   const totalItems = filteredUsers.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -105,7 +108,10 @@ export default function TableData({ users }: TableProps) {
   return (
     <div className="min-w-full relative">
       {showFilters && (
-        <div className="absolute top-8 -left-3 z-10 p-4 rounded-md">
+        <div
+          ref={filtersRef}
+          className="absolute top-8 -left-3 z-10 p-4 rounded-md"
+        >
           <Filters applyFilters={applyFilters} />
         </div>
       )}
@@ -184,8 +190,6 @@ export default function TableData({ users }: TableProps) {
                   />
                   {showDropdown === user.username && (
                     <div ref={dropdownRef}>
-                      {" "}
-                      {/* Attach ref to dropdown menu */}
                       <DropdownMenu
                         user={user}
                         onBlacklist={handleBlacklistUser}
