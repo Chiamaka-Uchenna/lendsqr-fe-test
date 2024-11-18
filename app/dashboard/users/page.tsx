@@ -66,7 +66,7 @@ export default function Page() {
           <div className="flex-1 min-w-[150px] max-w-[200px]">
             <InfoCard
               roundedCircle={true}
-              circleColor="customPink"
+              circleColor="#fce8ff"
               cardIcon={icons.usersIcon}
               cardTitle="USERS"
               cardKpi={totalItems.toString()}
@@ -75,7 +75,7 @@ export default function Page() {
           <div className="flex-1 min-w-[150px] max-w-[200px]">
             <InfoCard
               roundedCircle={true}
-              circleColor="customPurple"
+              circleColor="#eee8ff"
               cardIcon={icons.activeUsersIcon}
               cardTitle="ACTIVE USERS"
               cardKpi={usersData
@@ -86,7 +86,7 @@ export default function Page() {
           <div className="flex-1 min-w-[150px] max-w-[200px]">
             <InfoCard
               roundedCircle={true}
-              circleColor="customOrange"
+              circleColor="#feefec"
               cardIcon={icons.usersWithLoanIcon}
               cardTitle="USERS WITH LOAN"
               cardKpi={usersData
@@ -97,7 +97,7 @@ export default function Page() {
           <div className="flex-1 min-w-[150px] max-w-[200px]">
             <InfoCard
               roundedCircle={true}
-              circleColor="customOrange"
+              circleColor="#feefec"
               cardIcon={icons.usersWithSavingsIcon}
               cardTitle="USERS WITH SAVINGS"
               cardKpi={usersData
