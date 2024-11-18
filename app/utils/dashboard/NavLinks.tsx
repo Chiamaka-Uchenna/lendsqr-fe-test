@@ -131,10 +131,10 @@ export default function NavLinks() {
                 !isActive &&
                 title !== "Switch Organization" &&
                 title !== "Logout",
+              
             },
-            title === "Switch Organization" || title === "Logout"
-              ? "text-primary"
-              : ""
+            title === "Switch Organization" || title === "Logout" ? "text-primary" : ""
+
           )}
         >
           <Icon className="mr-3" width={20} height={20} aria-hidden="true" />

@@ -1,11 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { FaEllipsisV } from "react-icons/fa";
 import { MdFilterList } from "react-icons/md";
-
 import Filters from "@/app/utils/dashboard/Filters";
-import Pagination from "@/app/utils/dashboard/Pagination";
 import dynamic from "next/dynamic";
 import { User } from "@/app/types/User";
 
@@ -13,6 +11,8 @@ const DropdownMenu = dynamic(() => import("./DropdownMenu"), { ssr: false });
 
 type TableProps = {
   users: User[];
+  currentPage: number;
+  itemsPerPage: number;
 };
 
 const getStatusClasses = (status: User["status"]) => {
@@ -30,7 +30,11 @@ const getStatusClasses = (status: User["status"]) => {
   }
 };
 
-export default function TableData({ users }: TableProps) {
+export default function TableData({
+  users,
+  currentPage,
+  itemsPerPage,
+}: TableProps) {
   const [showFilters, setShowFilters] = useState(false);
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [showDropdown, setShowDropdown] = useState<string | null>(null);
@@ -47,9 +51,6 @@ export default function TableData({ users }: TableProps) {
     setShowDropdown(null);
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
   const toggleFilters = () => {
     setShowFilters(!showFilters);
   };
@@ -57,6 +58,10 @@ export default function TableData({ users }: TableProps) {
   const applyFilters = (filters: {
     organization?: string;
     status?: string;
+    username?: string;
+    email?: string;
+    date?: string;
+    phoneNumber?: string;
   }) => {
     let filteredData = users;
 
@@ -65,7 +70,26 @@ export default function TableData({ users }: TableProps) {
         (user) => user.organization === filters.organization
       );
     }
-
+    if (filters.username) {
+      filteredData = filteredData.filter(
+        (user) => user.username === filters.username
+      );
+    }
+    if (filters.email) {
+      filteredData = filteredData.filter(
+        (user) => user.email === filters.email
+      );
+    }
+    if (filters.phoneNumber) {
+      filteredData = filteredData.filter(
+        (user) => user.phone_number === filters.phoneNumber
+      );
+    }
+    if (filters.date) {
+      filteredData = filteredData.filter(
+        (user) => user.date_joined === filters.date
+      );
+    }
     if (filters.status) {
       filteredData = filteredData.filter(
         (user) => user.status === filters.status
@@ -73,7 +97,6 @@ export default function TableData({ users }: TableProps) {
     }
 
     setFilteredUsers(filteredData);
-    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -84,7 +107,6 @@ export default function TableData({ users }: TableProps) {
       ) {
         setShowDropdown(null);
       }
-
       if (
         filtersRef.current &&
         !filtersRef.current.contains(event.target as Node)
@@ -101,9 +123,11 @@ export default function TableData({ users }: TableProps) {
 
   const totalItems = filteredUsers.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentUsers = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentUsers = filteredUsers.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   return (
     <div className="min-w-full relative">
@@ -116,7 +140,7 @@ export default function TableData({ users }: TableProps) {
         </div>
       )}
 
-      <table className="w-auto bg-white border-2  border-t-gray-100 border-white rounded-lg shadow-md">
+      <table className="w-auto bg-white border-2 border-t-gray-100 border-white rounded-lg shadow-md">
         <thead>
           <tr className="bg-white text-[12px] font-semibold text-secondary leading-[14.08px] w-1/6">
             {[
@@ -150,7 +174,7 @@ export default function TableData({ users }: TableProps) {
             currentUsers.map((user, index) => (
               <tr
                 key={index}
-                className="border-b hover:bg-gray-50 border-b-slate-200  text-[14px] leading-[16.42px] text-secondary"
+                className="border-b hover:bg-gray-50 border-b-slate-200 text-[14px] leading-[16.42px] text-secondary"
               >
                 <td className="py-3 px-4 text-secondary">
                   {user.organization}

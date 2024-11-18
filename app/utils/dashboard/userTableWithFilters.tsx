@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import Filters from "@/app/utils/dashboard/Filters";
-import  { User } from "@/app/types/User";
+import { User } from "@/app/types/User";
 import TableData from "@/app/utils/dashboard/TableData";
 
 // Sample user data
 const sampleUsers: User[] = [
   {
-    id: "1", // Add an id
-    borrower_id: "borrower123", // Add a borrower_id
-    bank: "Example Bank", // Add a bank name
-    account_number: "1234567890", // Add an account number
+    id: "1",
+    borrower_id: "borrower123",
+    bank: "Example Bank",
+    account_number: "1234567890",
     organization: "Lendsqr",
     username: "user1",
     email: "user1@example.com",
@@ -38,8 +38,9 @@ const sampleUsers: User[] = [
       relationship: "Friend",
     },
   },
-  // Add more sample users as needed, ensuring each has the required properties
+  // Add more sample users as needed
 ];
+
 export default function UserTableWithFilters() {
   const [filters, setFilters] = useState({
     organization: "",
@@ -50,6 +51,8 @@ export default function UserTableWithFilters() {
     status: "",
   });
   const [showFilters, setShowFilters] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // Define how many items per page you want
 
   // Toggle filter visibility
   const toggleFilters = () => {
@@ -88,7 +91,11 @@ export default function UserTableWithFilters() {
           <Filters applyFilters={applyFilters} />
         </div>
       )}
-      <TableData users={filteredUsers} />
+      <TableData
+        users={filteredUsers}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState, useMemo } from "react";
 import InfoCard from "@/app/utils/dashboard/InfoCard";
@@ -18,7 +18,7 @@ export default function Page() {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          "https://run.mocky.io/v3/533da3a4-96a9-45ee-bbdf-3008f00296c2"
+          "https://run.mocky.io/v3/30ca8643-e3d1-4bf7-84b0-a421d8c97e64"
         );
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -115,9 +115,13 @@ export default function Page() {
             <p className="text-red-600">{error}</p>
           ) : (
             <div>
-              <TableData users={paginatedData} />
+              <TableData
+                users={paginatedData}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+              />
               <Pagination
-                totalItems={totalItems}
+                totalItems={usersData.length}
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 onPageChange={handlePageChange}

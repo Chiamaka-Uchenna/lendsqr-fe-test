@@ -10,7 +10,7 @@ interface User {
 const users: User[] = [
   {
     email: process.env.NEXT_PUBLIC_USER_EMAIL || "",
-    password: process.env.NEXT_PUBLIC_USER_PASSWORD || "", // This should be plain text now
+    password: process.env.NEXT_PUBLIC_USER_PASSWORD || "",
   },
 ];
 
