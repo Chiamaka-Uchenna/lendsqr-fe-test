@@ -45,6 +45,7 @@ export default function Page() {
   };
 
   const totalItems = usersData.length;
+  console.log(usersData);
 
   // Calculate paginated data based on current page and items per page
   const paginatedData = useMemo(() => {

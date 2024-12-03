@@ -1,19 +1,16 @@
 Lendsqr User Dashboard
-This project is a user management dashboard created for the Lendsqr Front-End assessment. It features a paginated table displaying user data with filters for organization, username, email, date joined, phone number, and status.
-
-Table of Contents
-Demo
-Features
-Technologies Used
-Setup
-Running the Application
-Project Structure
-Usage
-Future Improvements
+This project is a user management dashboard created for the Lendsqr Front-End assessment. 
+It features a paginated table displaying user data with filters for organization, username, email, date joined, phone number, and status.
 
 
 Demo
-[Include a link here if the project is deployed, e.g., on Vercel or Netlify.]
+(https://lendsqr-fe-test-rk9r-r2h1xr43u-chiamaka-uchennnas-projects.vercel.app/)
+
+
+Test Credentials
+Email: test@example.com
+Password: LENDsqr3215?
+
 
 Features
 Display a list of users with essential details.
