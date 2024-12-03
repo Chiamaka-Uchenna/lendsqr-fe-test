@@ -130,10 +130,19 @@ export default function TableData({
   );
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border-2 border-t-gray-100 border-white rounded-lg shadow-md">
-        <thead className="hidden md:table-header-group">
-          <tr className="bg-white text-[12px] font-semibold text-secondary leading-[14.08px]">
+    <div className="min-w-full relative">
+      {showFilters && (
+        <div
+          ref={filtersRef}
+          className="absolute top-8 -left-3 z-10 p-4 rounded-md"
+        >
+          <Filters applyFilters={applyFilters} />
+        </div>
+      )}
+
+      <table className="w-auto bg-white border-2 border-t-gray-100 border-white rounded-lg shadow-md">
+        <thead>
+          <tr className="bg-white text-[12px] font-semibold text-secondary leading-[14.08px] w-1/6">
             {[
               "Organization",
               "Username",
@@ -160,12 +169,12 @@ export default function TableData({
             ))}
           </tr>
         </thead>
-        <tbody className="md:table-row-group">
+        <tbody>
           {Array.isArray(currentUsers) &&
             currentUsers.map((user, index) => (
               <tr
                 key={index}
-                className="md:table-row border-b hover:bg-gray-50 border-b-slate-200 text-[14px] leading-[16.42px] text-secondary"
+                className="border-b hover:bg-gray-50 border-b-slate-200 text-[14px] leading-[16.42px] text-secondary"
               >
                 <td className="py-3 px-4 text-secondary">
                   {user.organization}
@@ -217,69 +226,6 @@ export default function TableData({
             ))}
         </tbody>
       </table>
-
-      {/* Responsive Layout for Small Screens */}
-      <div className="md:hidden space-y-4">
-        {currentUsers.map((user, index) => (
-          <div
-            key={index}
-            className="bg-white border rounded-lg shadow-md p-4 text-[14px] text-secondary"
-          >
-            <p>
-              <strong>Organization:</strong> {user.organization}
-            </p>
-            <p>
-              <strong>Username:</strong> {user.username}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Phone Number:</strong> {user.phone_number}
-            </p>
-            <p>
-              <strong>Date Joined:</strong>{" "}
-              {new Date(user.date_joined).toLocaleString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })}
-            </p>
-            <p>
-              <strong>Status:</strong>{" "}
-              <span
-                className={`px-2 py-1 rounded-full font-normal text-[14px] ${getStatusClasses(
-                  user.status
-                )}`}
-              >
-                {user.status}
-              </span>
-            </p>
-            <div className="text-right">
-              <FaEllipsisV
-                className="text-secondary font-normal cursor-pointer"
-                onClick={() =>
-                  setShowDropdown(
-                    showDropdown === user.username ? null : user.username
-                  )
-                }
-              />
-              {showDropdown === user.username && (
-                <div ref={dropdownRef}>
-                  <DropdownMenu
-                    user={user}
-                    onBlacklist={handleBlacklistUser}
-                    onActivate={handleActivateUser}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

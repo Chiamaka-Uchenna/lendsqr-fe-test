@@ -4,7 +4,7 @@ It features a paginated table displaying user data with filters for organization
 
 
 Demo
-(https://lendsqr-fe-test-rk9r-r2h1xr43u-chiamaka-uchennnas-projects.vercel.app/)
+(lendsqr-fe-test-mu-wheat.vercel.app)
 
 
 Test Credentials
